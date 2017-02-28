@@ -1,0 +1,71 @@
+Oracle	Database	12c Release	1 (12.1.0.2)
+Oracle	Single Instance
+インストレーション・ガイド
+Linux	x86-64 版
+構築ガイド
+
+■ランレベルの確認（3 あるい? 5）
+#runlevel
+もしくは
+#vi /etc/inittab
+
+■解像度の確認（1024×768以上）
+#xrandr
+
+□解像度の変更
+
+
+
+
+	1.VMware Toolの再インストールを行う。
+
+	2.デスクトップにVMware Toolsが生成される。
+
+	3.生成されたVMware Toolsの中に「VMwareTools-10.0.10-4301679.tar.gz」を
+	　適切な場所にコピーし、圧縮を解凍する。
+	# tar -zxvf VMwareTools-10.0.10-4301679.tar.gz
+
+	4.圧縮が解けた「vmware-tools-distrib」に移動する。
+	# cd vmware-tools-distrib
+
+	5.vmware-installを行う。
+	# ./vmware-install.pl
+	⇒いろんな質問を聞かれるが、enterを押しながら進む。
+
+
+	●下記のエラーが発生した場合、(5-1)を行う。
+	The installer has detected an existing installation of open-vm-tools on this 
+	system and will not attempt to remove and replace these user-space 
+	applications. It is recommended to use the open-vm-tools packages provided by 
+	the operating system. If you do not want to use the existing installation of 
+	open-vm-tools and attempt to install VMware Tools, you must uninstall the 
+	open-vm-tools packages and re-run this installer.
+	The packages that need to be removed are:
+	open-vm-tools
+	The installer will next check if there are any missing kernel drivers. Type yes
+	if you want to do this, otherwise type no [yes] 
+
+	A previous installation of VMware Tools has been detected.
+
+	The previous installation was made by the tar installer (version 4).
+
+	Keeping the tar4 installer database format.
+
+	You have a version of VMware Tools installed.  Continuing this install will 
+	first uninstall the currently installed version.  Do you wish to continue? 
+	(yes/no) [yes] 
+
+	Error: Unable to find the binary installation directory (answer BINDIR)
+	       in the installer database file "/etc/vmware-tools/locations".
+
+	Uninstall failed.  Please correct the failure and re run the install.
+
+	Execution aborted.
+
+
+	(5-1).etc/vmware-tools/のlocationsフォルダを削除して5.を再度行う。
+	#rm etc/vmware-tools/locations
+	yes
+
+
+
