@@ -24,7 +24,7 @@ Linux	x86-64 版
 
 ■カーネル・パラメータの設定
 # vi /etc/sysctl.conf
-
+s
 kernel.shmall = 1073741824
 kernel.shmmax = 4398046511104
 kernel.shmmni = 4096
@@ -166,5 +166,12 @@ Oracle Universal Installerを起動中です...
 スワップ領域の確認中: 150MBを超えている必要があります.   実際 5119MB    問題なし
 モニターの確認中: 少なくとも256色表示するよう設定されている必要があります
     >>> コマンド/usr/bin/xdpyinfoを使用して表示色の自動チェックを実行できませんでした。DISPLAY変数が設定されていることを確認してください。    失敗 <<<<
+
+□OracleにSoftフォルダを作成して
+# mv *.zip /home/oracle/Soft
+
+□Displayの解決
+# xhost +
+
 
 
