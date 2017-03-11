@@ -167,11 +167,35 @@ Oracle Universal Installerを起動中です...
 モニターの確認中: 少なくとも256色表示するよう設定されている必要があります
     >>> コマンド/usr/bin/xdpyinfoを使用して表示色の自動チェックを実行できませんでした。DISPLAY変数が設定されていることを確認してください。    失敗 <<<<
 
-□OracleにSoftフォルダを作成して
-# mv *.zip /home/oracle/Soft
+□zipファイルの解凍をやり直す
+/databaseがあるディレクトリにて以下を行う。
 
-□Displayの解決
-# xhost +
+	・権限を確認する
+	# ls -l 
 
+	・悪い例）
+	[oracle@localhost soft]$ ls -l
+	合計 2625084
+	drwxr-xr-x. 7 root   root           4096  7月  7  2014 database
+	-rwxrwxrwx. 1 root   root     1673544724  1月 21 16:00 linuxamd64_12102_database_1of2.zip
+	-rwxrwxrwx. 1 root   root     1014530602  1月 21 15:52 linuxamd64_12102_database_2of2.zip
 
+	・正しい例）
+	[oracle@localhost soft]$ ls -l
+	合計 2625084
+	drwxr-xr-x. 7 oracle oinstall       4096  7月  7  2014 database
+	-rwxrwxrwx. 1 root   root     1673544724  1月 21 16:00 linuxamd64_12102_database_1of2.zip
+	-rwxrwxrwx. 1 root   root     1014530602  1月 21 15:52 linuxamd64_12102_database_2of2.zip
 
+※runintaller 文字化けの場合
+□runintaller 文字化け解決
+	# which java
+	/usr/bin/java
+
+	# readlink -e /usr/bin/java
+	/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/java
+
+	☆/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/javaから後ろの/bin/javaを除いて
+	-jreLoc Optionを付けインストールする
+
+	# ./runInstaller -jreLoc /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre
