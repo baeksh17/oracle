@@ -47,41 +47,41 @@ net.core.wmem_max = 1048576
 # groupadd -g 54325 dgdba
 # groupadd -g 54326 kmdba
 
-※OS グループの確認
-# cat /etc/group
+	※OS グループの確認
+	# cat /etc/group
 
-※OS グループの削除
-# groupdel グループ名
+	※OS グループの削除
+	# groupdel グループ名
 
 ■OS ユーザーの作成
 # useradd -u 1200 -g oinstall -G dba,oper,backupdba,dgdba,kmdba -d /home/oracle oracle
 
 # passwd oracle
 
-※OS ユーザーの確認
-# cat /etc/passwd
+	※OS ユーザーの確認
+	# cat /etc/passwd
 
-※OS ユーザーの削除
-# userdel ユーザー名
+	※OS ユーザーの削除
+	# userdel ユーザー名
 
 ■インストール・ディレクトリの準備
 # mkdir -p /opt/app/oracle
 # chown oracle:oinstall /opt/app/oracle
 # chmod -R 775 /opt
 
-※ディレクトリ削除
-rm -r ディレクトリ名
+	※ディレクトリ削除
+	rm -r ディレクトリ名
 
-※ファイル削除
-rm -f ファイル名
+	※ファイル削除
+	rm -f ファイル名
 
-※ファイル・ディレクトリ権限確認
-# ls -al
+	※ファイル・ディレクトリ権限確認
+	# ls -al
 
-r（４）：読み取り
-w（２）：書き込み
-x（１）：実行
--：権限なし
+	r（４）：読み取り
+	w（２）：書き込み
+	x（１）：実行
+	-：権限なし
 
 ■リソース制限䛾設定
 #vi /etc/security/limits.conf
@@ -96,8 +96,8 @@ oracle  hard   stack   32768
 ユーザーをrootからoracleにて変更する。
 # su - oracle
 
-共有フォルダ、インターネットなどからオラクルインストールファイルを取得する
-※以下は共有フォルダを利用する場合の手順。
+	共有フォルダ、インターネットなどからオラクルインストールファイルを取得する
+	※以下は共有フォルダを利用する場合の手順。
 	1.VMware Toolの再インストールを行う。
 
 	2.デスクトップにVMware Toolsが生成される。
@@ -151,27 +151,27 @@ oracle  hard   stack   32768
 
 ■Oracle Databaseのインストール
 準備したoracleインストールのディレクトリから以下のコマンドを実行する。
+$ ./runInstaller
 
-# ./runInstaller
-※以下のエラーの場合
-Source location is incomplete. Make sure you have downloaded and extracted
-all the relevant archives.
+	※以下のエラーの場合
+	Source location is incomplete. Make sure you have downloaded and extracted
+	all the relevant archives.
 
-⇒1of2.zip,2of2.zipの中、一つしか解凍しなかったので発生したエラー。
+	⇒1of2.zip,2of2.zipの中、一つしか解凍しなかったので発生したエラー。
 
-※以下のエラーの場合
-Oracle Universal Installerを起動中です...
+	※以下のエラーの場合
+	Oracle Universal Installerを起動中です...
 
-一時領域の確認中: 500MBを超えている必要があります.   実際 40224MB    問題なし
-スワップ領域の確認中: 150MBを超えている必要があります.   実際 5119MB    問題なし
-モニターの確認中: 少なくとも256色表示するよう設定されている必要があります
-    >>> コマンド/usr/bin/xdpyinfoを使用して表示色の自動チェックを実行できませんでした。DISPLAY変数が設定されていることを確認してください。    失敗 <<<<
+	一時領域の確認中: 500MBを超えている必要があります.   実際 40224MB    問題なし
+	スワップ領域の確認中: 150MBを超えている必要があります.   実際 5119MB    問題なし
+	モニターの確認中: 少なくとも256色表示するよう設定されている必要があります
+	    >>> コマンド/usr/bin/xdpyinfoを使用して表示色の自動チェックを実行できませんでした。DISPLAY変数が設定されているこ	とを確認してください。    失敗 <<<<
 
-□zipファイルの解凍をやり直す
-/databaseがあるディレクトリにて以下を行う。
+	□zipファイルの解凍をやり直す
+	/databaseがあるディレクトリにて以下を行う。
 
 	・権限を確認する
-	# ls -l 
+	$ ls -l 
 
 	・悪い例）
 	[oracle@localhost soft]$ ls -l
@@ -187,15 +187,34 @@ Oracle Universal Installerを起動中です...
 	-rwxrwxrwx. 1 root   root     1673544724  1月 21 16:00 linuxamd64_12102_database_1of2.zip
 	-rwxrwxrwx. 1 root   root     1014530602  1月 21 15:52 linuxamd64_12102_database_2of2.zip
 
-※runintaller 文字化けの場合
-□runintaller 文字化け解決
-	# which java
+
+	※解凍の際、checkdir error:  cannot create databaseの場合
+	SuperUser権限にてsoftディレクトリの権限を変更する。
+	# chmod 777 /home/oracle/soft
+
+	※runintaller 文字化けの場合
+	□runintaller 文字化け解決
+	$ which java
 	/usr/bin/java
 
-	# readlink -e /usr/bin/java
+	$ readlink -e /usr/bin/java
 	/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/java
 
 	☆/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/javaから後ろの/bin/javaを除いて
 	-jreLoc Optionを付けインストールする
 
-	# ./runInstaller -jreLoc /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre
+	$ ./runInstaller -jreLoc /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre
+	
+	
+■インストーラステップ6/11
+Oracleベースを以下に設定する。
+/opt/app/oracle
+ソフトウェアの場所は自動的に変わる。
+
+	※インストーラステップ7/11からインベントリエラーの場合
+	以下にてoraInventoryの作成、権限を与える。
+	# mkdir -p /opt/app/oraInventory
+	# chown -R oracle:oinstall /opt/app/oraInventory
+	# chmod -R 775 /opt/app/oraInventory
+
+■インストーラステップ9/11
