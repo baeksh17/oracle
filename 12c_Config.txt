@@ -204,7 +204,7 @@ $ ./runInstaller
 	-jreLoc Optionを付けインストールする
 
 	$ ./runInstaller -jreLoc /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/
-	
+	（すぐ上記のコマンドを入れても構わないが、エラーの場合、順番で行う。）
 	
 ■インストーラステップ6/11
 Oracleベースを以下に設定する。
@@ -239,4 +239,61 @@ Oracleベースを以下に設定する。
 	□rpm -qaのコマンドでリストを確認できる。
 	
 ■インストーラステップ11/12
-構成スクリプトの実行でOKボタンを押下する。
+/opt/app/oraInventory/orainstRoot.sh
+/opt/app/oracle/product/12.1.0/dbhome_1/root.sh
+上記のスクリプトを実行してポップアップの
+構成スクリプトの実行、OKボタンを押下する。
+
+	※以下のエラーが出る場合
+	[INS-10013] インストーラにより、現在のホームがこのシステムの中央インベントリに登録されていないことが検出されました。	（原因 - これは、次の理由で発生します - /opt/app/oraInventory/orainstRoot.shが実行されていなかった場合、またはスクリ	プトによるインベントリの更新が失敗していた場合。  アクション - スクリプトをrootユーザーとして実行します。）
+	
+	⇒この問題は上記のスクリプトを実行しなかったので出たエラーである
+	　スクリプトを実行すること。
+
+■オラクルインストーラ終了
+閉じる
+--END--
+
+
+#######################################################################################################################
+Database	Configuration	Assistant(DBCA)
+#######################################################################################################################
+
+■環境変数の設定
+$HOME/.bash_profileを以下に設定する。
+
+$ vi ~./.bash_profile
+以下の設定を挿入する
+
+umask 022
+export ORACLE_BASE=/opt/app/oracle
+export ORACLE_HOME=/opt/app/oracle/product/12.1.0/dbhome_1
+export PATH=$ORACLE_HOME/bin:$PATH
+export LANG=ja_JP.UTF-8
+export NLS_LANG=Japanese_Japan.AL32UTF8
+
+	□vi editor 挿入は"i"を押下する。
+	　挿入が終わったら"esc"を押下し、":wq"を記入してEnterボタンを押す。
+	　":q!"で保存しないで終わらせることもできる。
+
+☆再ログイン必要
+
+■DBCA 起動
+オラクルユーザにて以下のコマンドを実行する。
+# su - oracle
+
+$ cd opt/app/oracle/product/12.1.0/dbhome_1/bin/
+$ ./dbca
+
+	※DBCAの文字化けの場合
+	$ vi ./dbca
+	
+	「JRE_DIR」を探して、パスを修正する
+		
+		□パス取得方法
+		$ which java
+		/bin/java
+		$ readlink -e /bin/java
+	
+■パスワード設定の警告は無視する。
+
