@@ -200,7 +200,7 @@ $ ./runInstaller
 	$ readlink -e /usr/bin/java
 	/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/java
 
-	☆/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/javaから後ろの/bin/javaを除いてから
+	★/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/javaから後ろの/bin/javaを除いてから
 	-jreLoc Optionを付けインストールする
 
 	$ ./runInstaller -jreLoc /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/
@@ -224,4 +224,19 @@ Oracleベースを以下に設定する。
 	# vi /etc/sysctl.confコマンドでOSカーネル・パラメータ設定を確認する
 	
 	Ex1)設定の一つが前に"#"が入ってコメントアウト処理になっていた。
+	
+	
+	※パッケージ警告の場合
+	ネットでパッケージ名を検索してダウンロードする。
+	★たくさんのRPMが必要な原因はlinuxインストール時にRPMの選択を全部しなかったである。
+	★その場合、yumを利用してRPMをインストールする方法が早い。
+	★redhatバージョンがいいが、できない場合、CentOSバージョンでも構わない。
 
+	必要なファイルをダウンロードしたら、GUIを利用するか、rootユーザで
+	# rpm -i ＜RPMファイル名＞
+	にてインストールして再チェックボタンを押下する。
+	
+	□rpm -qaのコマンドでリストを確認できる。
+	
+■インストーラステップ11/12
+構成スクリプトの実行でOKボタンを押下する。
