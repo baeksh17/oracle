@@ -200,10 +200,10 @@ $ ./runInstaller
 	$ readlink -e /usr/bin/java
 	/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/java
 
-	☆/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/javaから後ろの/bin/javaを除いて
+	☆/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/bin/javaから後ろの/bin/javaを除いてから
 	-jreLoc Optionを付けインストールする
 
-	$ ./runInstaller -jreLoc /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre
+	$ ./runInstaller -jreLoc /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.71-1.b15.el6_7.x86_64/jre/
 	
 	
 ■インストーラステップ6/11
@@ -218,3 +218,10 @@ Oracleベースを以下に設定する。
 	# chmod -R 775 /opt/app/oraInventory
 
 ■インストーラステップ9/11
+前提条件のチェックで色んな警告が引っかかる。
+
+	※OSカーネル・パラメータ警告の場合
+	# vi /etc/sysctl.confコマンドでOSカーネル・パラメータ設定を確認する
+	
+	Ex1)設定の一つが前に"#"が入ってコメントアウト処理になっていた。
+
