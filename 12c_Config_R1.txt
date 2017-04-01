@@ -302,4 +302,30 @@ $ ./dbca
 ☆閉じる前に、EM database ExpressのURLを記載しておくこと。
 
 
-■OEMを確認すること。
+■EM Expressを確認すること。
+
+1. sqlplusを実行する。
+$sqlplus / as sysdba
+
+	※エラーの場合、su - oracleを行う。
+	　rootユーザではできない。
+
+2.オラクルDBを起動する。
+SQL> startup 
+マウントが終わるのを待つ。
+
+3.リスナーを起動する。
+$lsnrctl start
+
+$lsnrctl statusコマンドでリスナーの起動を確認。
+
+4.EM Expressに接続する。
+ex)https://localhost:5500/em
+
+	※getFlash問題の場合、Adobe社のrpmをダウンし、インストるする。
+	
+
+■
+
+
+
